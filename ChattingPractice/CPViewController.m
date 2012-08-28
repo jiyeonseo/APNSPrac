@@ -75,6 +75,7 @@
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField{
     //안되네;
+    NSLog(@"들 ㅋ 어 ㅋ 옴 ㅋ");
     [msgTextField resignFirstResponder];
 
 }
