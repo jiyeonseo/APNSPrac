@@ -16,4 +16,5 @@
 @property (nonatomic, strong) IBOutlet UIButton *msgButton;
 
 -(IBAction)msgSend:(id)sender;
+-(IBAction)backgroundTouched:(id)sender;
 @end

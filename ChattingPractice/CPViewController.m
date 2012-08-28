@@ -16,7 +16,7 @@
 @end
 
 @implementation CPViewController
-@synthesize tableView, msgView, msgTextField;
+@synthesize tableView, msgView, msgTextField, msgButton;
 @synthesize msgArray;
 - (void)viewDidLoad
 {
@@ -70,12 +70,21 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.msgView.center = CGPointMake(self.msgView.center.x, self.msgView.center.y+215);
     }];
-    
+
     return YES;
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField{
     //안되네;
+    [msgTextField resignFirstResponder];
+
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [msgArray addObject:msgTextField.text];
+    msgTextField.text =@"";
+    [tableView reloadData];
     [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma mark - ClickAction
@@ -83,7 +92,11 @@
     [msgArray addObject:msgTextField.text];
     msgTextField.text =@"";
     [tableView reloadData];
+    [msgTextField resignFirstResponder];
 }
-
+-(IBAction)backgroundTouched:(id)sender{
+    //View클릭시 textField keyboard 사라짐 
+    [msgTextField resignFirstResponder];
+}
 
 @end
