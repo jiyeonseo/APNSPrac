@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CPViewController : UIViewController <UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate>
+@interface CPViewController : UIViewController <UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate,UIScrollViewDelegate, UIGestureRecognizerDelegate>{
+    
+}
+ 
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UIView *msgView;
