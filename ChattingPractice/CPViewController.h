@@ -8,18 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CPViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
-{
-    UITableView *mainTableView;
-    UIView *msgView;
-    UITextField *msgTextField;
-    UIButton *msgButton;
-}
-@property (nonatomic, strong) IBOutlet UITableView *mainTableView;
+@interface CPViewController : UIViewController <UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate>
+
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UIView *msgView;
 @property (nonatomic, strong) IBOutlet UITextField *msgTextField;
 @property (nonatomic, strong) IBOutlet UIButton *msgButton;
 
 -(IBAction)msgSend:(id)sender;
-
 @end

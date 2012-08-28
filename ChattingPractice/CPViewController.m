@@ -1,6 +1,6 @@
 //
 //  CPViewController.m
-//  ChattingPractice
+//  ChattingPrac
 //
 //  Created by Jiyeon Seo on 12. 8. 28..
 //  Copyright (c) 2012년 Jiyeon Seo. All rights reserved.
@@ -9,18 +9,20 @@
 #import "CPViewController.h"
 
 @interface CPViewController ()
-
+{
+    NSMutableArray *msgArray;
+}
+@property (nonatomic, strong) NSMutableArray *msgArray;
 @end
 
 @implementation CPViewController
-@synthesize mainTableView, msgView, msgTextField;
-
-#pragma mark - View lifeCycle
-
+@synthesize tableView, msgView, msgTextField;
+@synthesize msgArray;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+	msgArray = [[NSMutableArray alloc]init];
 }
 
 - (void)viewDidUnload
@@ -34,25 +36,54 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
--(void)didReceiveMemoryWarning{
-    [super didReceiveMemoryWarning];
-}
-#pragma mark - TableView delegate method 
--
+#pragma mark - TableView Delegate
 
-#pragma mark - TextField delegate method
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [msgArray count];
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if(cell ==nil){
+        cell= [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+//    cell.textLabel.text = @"test";
+    cell.textLabel.text = [self.msgArray objectAtIndex:[indexPath row]];
+    return cell;
+}
+
+#pragma mark - TextField Delegate 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+
     [UIView animateWithDuration:0.3 animations:^{
-        self.msgView.center = CGPointMake(self.msgView.center.x, self.msgView.center.y - 215);
+        self.msgView.center = CGPointMake(self.msgView.center.x, self.msgView.center.y-215);
     }];
     
     return YES;
 }
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    [UIView animateWithDuration:03. animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         self.msgView.center = CGPointMake(self.msgView.center.x, self.msgView.center.y+215);
     }];
     
     return YES;
 }
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    //안되네;
+    [textField resignFirstResponder];
+}
+
+#pragma mark - ClickAction
+-(IBAction)msgSend:(id)sender{
+    [msgArray addObject:msgTextField.text];
+    msgTextField.text =@"";
+    [tableView reloadData];
+}
+
+
 @end
